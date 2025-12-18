@@ -1,0 +1,360 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import siteConfig from '../data/siteConfig.json';
+
+const { business, serviceAreas } = siteConfig;
+
+// Formspree endpoint - replace with actual form ID
+const formspreeEndpoint = "https://formspree.io/f/YOUR_FORM_ID";
+
+// Google Maps API Key from environment variable
+const googleMapsApiKey = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
+
+const contactMethods = [
+  {
+    icon: "phone",
+    label: "Phone",
+    value: business.phone,
+    href: `tel:${business.phoneRaw}`,
+    description: "Mon-Fri 9am-5pm CT",
+  },
+  {
+    icon: "email",
+    label: "Email",
+    value: business.email,
+    href: `mailto:${business.email}`,
+    description: "We respond within 24 hours",
+  },
+  {
+    icon: "location",
+    label: "Location",
+    value: `${business.address.city}, ${business.address.state}`,
+    href: `https://maps.google.com/?q=${encodeURIComponent(`${business.address.street}, ${business.address.city}, ${business.address.state} ${business.address.zip}`)}`,
+    description: "Serving Northeast Texas",
+  },
+];
+
+const icons = {
+  phone: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>`,
+  email: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>`,
+  location: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>`,
+};
+
+const serviceOptions = [
+  "Real Estate Photography",
+  "Matterport 3D Tour",
+  "Aerial/Drone Photography",
+  "Portrait Photography",
+  "Wedding Photography",
+  "Video Production",
+  "Web Design",
+  "Other",
+];
+---
+
+<BaseLayout
+  title="Contact Us | Luminous Productions"
+  description="Get in touch with Luminous Productions for professional photography and digital services in Commerce, TX and Northeast Texas. Call (903) 851-3183 or fill out our contact form."
+>
+  <!-- Hero -->
+  <section class="relative py-20 bg-primary">
+    <div class="container text-center">
+      <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+        Get In Touch
+      </p>
+      <h1 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">
+        Contact Us
+      </h1>
+      <p class="text-white/80 text-lg max-w-2xl mx-auto">
+        Ready to start your project? Have questions? We'd love to hear from you. Reach out through any of the methods below.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Methods -->
+  <section class="section bg-light-bg">
+    <div class="container">
+      <div class="grid md:grid-cols-3 gap-6 -mt-24">
+        {contactMethods.map((method) => (
+          <a
+            href={method.href}
+            target={method.icon === 'location' ? '_blank' : undefined}
+            rel={method.icon === 'location' ? 'noopener noreferrer' : undefined}
+            class="group bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
+          >
+            <div class="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-accent transition-colors">
+              <svg
+                class="w-7 h-7 text-accent group-hover:text-white transition-colors"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                set:html={icons[method.icon as keyof typeof icons]}
+              />
+            </div>
+            <h3 class="font-semibold text-primary text-lg mb-1">{method.label}</h3>
+            <p class="text-accent font-medium mb-1">{method.value}</p>
+            <p class="text-muted text-sm">{method.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form & Info -->
+  <section class="section">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-16">
+        <!-- Form -->
+        <div>
+          <h2 class="font-display text-3xl font-bold text-primary mb-4">
+            Send Us a Message
+          </h2>
+          <p class="text-muted mb-8">
+            Fill out the form below and we'll get back to you within 24 hours. For urgent inquiries, please call us directly.
+          </p>
+
+          <form
+            action={formspreeEndpoint}
+            method="POST"
+            class="space-y-6"
+            id="contact-form"
+          >
+            <!-- Name -->
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label for="firstName" class="block text-sm font-medium text-primary mb-2">
+                  First Name <span class="text-accent">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  required
+                  class="w-full px-4 py-3 rounded-lg border border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all"
+                  placeholder="John"
+                />
+              </div>
+              <div>
+                <label for="lastName" class="block text-sm font-medium text-primary mb-2">
+                  Last Name <span class="text-accent">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  required
+                  class="w-full px-4 py-3 rounded-lg border border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all"
+                  placeholder="Doe"
+                />
+              </div>
+            </div>
+
+            <!-- Email & Phone -->
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label for="email" class="block text-sm font-medium text-primary mb-2">
+                  Email <span class="text-accent">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="w-full px-4 py-3 rounded-lg border border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all"
+                  placeholder="john@example.com"
+                />
+              </div>
+              <div>
+                <label for="phone" class="block text-sm font-medium text-primary mb-2">
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  class="w-full px-4 py-3 rounded-lg border border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all"
+                  placeholder="(903) 555-1234"
+                />
+              </div>
+            </div>
+
+            <!-- Service Interest -->
+            <div>
+              <label for="service" class="block text-sm font-medium text-primary mb-2">
+                Service Interest
+              </label>
+              <select
+                id="service"
+                name="service"
+                class="w-full px-4 py-3 rounded-lg border border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all bg-white"
+              >
+                <option value="">Select a service (optional)</option>
+                {serviceOptions.map((service) => (
+                  <option value={service}>{service}</option>
+                ))}
+              </select>
+            </div>
+
+            <!-- Message -->
+            <div>
+              <label for="message" class="block text-sm font-medium text-primary mb-2">
+                Message <span class="text-accent">*</span>
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows="5"
+                class="w-full px-4 py-3 rounded-lg border border-border focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all resize-none"
+                placeholder="Tell us about your project..."
+              ></textarea>
+            </div>
+
+            <!-- Honeypot (spam protection) -->
+            <input type="text" name="_gotcha" class="hidden" />
+
+            <!-- Submit -->
+            <button
+              type="submit"
+              class="btn btn-primary w-full md:w-auto text-lg px-10 py-4"
+            >
+              Send Message
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+              </svg>
+            </button>
+          </form>
+
+          <!-- Form success message (hidden by default) -->
+          <div id="form-success" class="hidden mt-6 p-6 bg-green-50 border border-green-200 rounded-xl">
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <div>
+                <h3 class="font-semibold text-green-800">Message Sent!</h3>
+                <p class="text-green-700 text-sm">Thank you for reaching out. We'll get back to you within 24 hours.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info Sidebar -->
+        <div>
+          <!-- Business Hours -->
+          <div class="bg-light-bg rounded-2xl p-8 mb-8">
+            <h3 class="font-display text-xl font-bold text-primary mb-4">
+              Business Hours
+            </h3>
+            <ul class="space-y-3">
+              <li class="flex justify-between">
+                <span class="text-muted">Monday - Friday</span>
+                <span class="text-primary font-medium">9:00 AM - 5:00 PM</span>
+              </li>
+              <li class="flex justify-between">
+                <span class="text-muted">Saturday - Sunday</span>
+                <span class="text-primary font-medium">By Appointment</span>
+              </li>
+            </ul>
+            <p class="text-muted text-sm mt-4">
+              * Photo shoots and on-location sessions available evenings and weekends by appointment.
+            </p>
+          </div>
+
+          <!-- Service Areas -->
+          <div class="bg-light-bg rounded-2xl p-8 mb-8">
+            <h3 class="font-display text-xl font-bold text-primary mb-4">
+              Service Areas
+            </h3>
+            <p class="text-muted mb-4">
+              We serve clients throughout Northeast Texas, including:
+            </p>
+            <div class="flex flex-wrap gap-2">
+              {serviceAreas.map((area) => (
+                <a
+                  href={`/service-areas/${area.slug}`}
+                  class:list={[
+                    "px-3 py-1.5 rounded-full text-sm transition-colors",
+                    area.isHomeBase
+                      ? "bg-accent text-white"
+                      : "bg-white text-primary hover:bg-accent hover:text-white"
+                  ]}
+                >
+                  {area.city}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <!-- Quick Booking -->
+          <div class="bg-primary rounded-2xl p-8 text-center">
+            <h3 class="font-display text-xl font-bold text-white mb-3">
+              Ready to Book?
+            </h3>
+            <p class="text-white/80 mb-6">
+              Skip the form and book your session directly through our online portal.
+            </p>
+            <a
+              href={business.bookingPortal}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary inline-flex"
+            >
+              Book Online
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="h-96 bg-light-bg">
+    <iframe
+      src={`https://www.google.com/maps/embed/v1/place?key=${googleMapsApiKey}&q=${encodeURIComponent(`${business.address.street}, ${business.address.city}, ${business.address.state} ${business.address.zip}`)}`}
+      width="100%"
+      height="100%"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Luminous Productions Location"
+      class="grayscale hover:grayscale-0 transition-all duration-500"
+    ></iframe>
+  </section>
+</BaseLayout>
+
+<script>
+  // Form submission handling
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const successMessage = document.getElementById('form-success');
+
+  if (form && successMessage) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          form.classList.add('hidden');
+          successMessage.classList.remove('hidden');
+        }
+      } catch (error) {
+        console.error('Form submission error:', error);
+      }
+    });
+  }
+</script>

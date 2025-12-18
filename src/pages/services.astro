@@ -1,0 +1,270 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ServiceCard from '../components/sections/ServiceCard.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import siteConfig from '../data/siteConfig.json';
+
+const { business } = siteConfig;
+
+// All services with detailed information
+const photographyServices = [
+  {
+    title: "Real Estate Photography",
+    description: "Professional HDR photography that helps properties sell faster. Includes interior, exterior, and twilight shots.",
+    href: "/real-estate-photography",
+    icon: "home" as const,
+    featured: true,
+  },
+  {
+    title: "Matterport 3D Tours",
+    description: "Immersive virtual tours that let buyers explore properties from anywhere. Includes dollhouse view and floor plans.",
+    href: "/matterport-3d-tours",
+    icon: "cube" as const,
+  },
+  {
+    title: "Aerial Drone Photography",
+    description: "FAA-certified aerial photography and video showcasing properties and land from stunning perspectives.",
+    href: "/aerial-drone-photography",
+    icon: "plane" as const,
+  },
+  {
+    title: "Portrait Photography",
+    description: "Family portraits, senior photos, and professional headshots that capture personality and tell your story.",
+    href: "/portrait-photography",
+    icon: "users" as const,
+  },
+  {
+    title: "Wedding Photography",
+    description: "Documenting your special day with a blend of candid moments and timeless portraits.",
+    href: "/wedding-photography",
+    icon: "camera" as const,
+  },
+  {
+    title: "Event Photography",
+    description: "Corporate events, celebrations, and special occasions captured with professional quality.",
+    href: "/event-photography",
+    icon: "camera" as const,
+  },
+];
+
+const digitalServices = [
+  {
+    title: "Video Production",
+    description: "Cinematic videos for real estate, businesses, and events. From concept to final edit.",
+    href: "/video-production",
+    icon: "video" as const,
+  },
+  {
+    title: "Web Design",
+    description: "Custom websites that look great, load fast, and help your business grow online.",
+    href: "/web-design",
+    icon: "monitor" as const,
+  },
+];
+
+// Service categories for schema
+const allServices = [...photographyServices, ...digitalServices];
+---
+
+<BaseLayout
+  title="Services | Photography & Digital Services"
+  description="Professional photography, Matterport 3D tours, drone aerial imagery, video production, and web design services in Northeast Texas. Serving Commerce, Greenville, Rockwall since 2001."
+>
+  <!-- Hero Section -->
+  <section class="relative py-24 md:py-32 bg-primary overflow-hidden">
+    <div class="container relative z-10">
+      <div class="max-w-3xl">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-4">
+          Our Services
+        </p>
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+          Look Good. Work Smarter.
+        </h1>
+        <p class="text-xl text-white/90 leading-relaxed">
+          From professional photography to custom web design, we provide the visual content and digital tools your business needs to succeed. All backed by over 20 years of experience.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photography Services -->
+  <section class="section">
+    <div class="container">
+      <div class="mb-12">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          Photography Services
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+          Capture Every Moment
+        </h2>
+        <p class="text-muted text-lg max-w-2xl">
+          Professional photography services for real estate, portraits, weddings, and events. Every image tells a story.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {photographyServices.map((service) => (
+          <ServiceCard {...service} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Digital Services -->
+  <section class="section bg-light-bg">
+    <div class="container">
+      <div class="mb-12">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          Digital Services
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+          Grow Your Digital Presence
+        </h2>
+        <p class="text-muted text-lg max-w-2xl">
+          Video production and web design services to help your business connect with customers online.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-3xl">
+        {digitalServices.map((service) => (
+          <ServiceCard {...service} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="section">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+            Why Choose Us
+          </p>
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-6">
+            Experience You Can Trust
+          </h2>
+          <p class="text-muted text-lg leading-relaxed mb-8">
+            Since 2001, we've been helping businesses and families throughout Northeast Texas. Our longevity speaks to our commitment to quality and customer satisfaction.
+          </p>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-primary mb-1">Fast Turnaround</h3>
+                <p class="text-muted text-sm">Most projects delivered within 24-48 hours. Rush service available.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-primary mb-1">Certified Professionals</h3>
+                <p class="text-muted text-sm">FAA Part 107 certified for drone operations. Official Matterport partner.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-primary mb-1">Local Coverage</h3>
+                <p class="text-muted text-sm">Serving Commerce, Greenville, Rockwall, and all of Northeast Texas.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-primary mb-1">5-Star Service</h3>
+                <p class="text-muted text-sm">Consistently rated 5 stars by our clients for quality and reliability.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="space-y-4">
+            <div class="bg-light-bg rounded-2xl aspect-[4/3]"></div>
+            <div class="bg-light-bg rounded-2xl aspect-square"></div>
+          </div>
+          <div class="space-y-4 pt-8">
+            <div class="bg-light-bg rounded-2xl aspect-square"></div>
+            <div class="bg-light-bg rounded-2xl aspect-[4/3]"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="section bg-light-bg">
+    <div class="container">
+      <div class="text-center mb-16">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          How We Work
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+          Simple Process, Great Results
+        </h2>
+        <p class="text-muted text-lg max-w-2xl mx-auto">
+          We make working with us easy. Here's what to expect.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="font-display text-2xl font-bold text-white">1</span>
+          </div>
+          <h3 class="font-semibold text-primary text-lg mb-2">Consultation</h3>
+          <p class="text-muted text-sm">Tell us about your project. We'll recommend the best services for your needs.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="font-display text-2xl font-bold text-white">2</span>
+          </div>
+          <h3 class="font-semibold text-primary text-lg mb-2">Schedule</h3>
+          <p class="text-muted text-sm">Book online or by phone. Same-day and next-day appointments often available.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="font-display text-2xl font-bold text-white">3</span>
+          </div>
+          <h3 class="font-semibold text-primary text-lg mb-2">Capture</h3>
+          <p class="text-muted text-sm">We show up, do our thing, and make sure you're happy with the process.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="font-display text-2xl font-bold text-white">4</span>
+          </div>
+          <h3 class="font-semibold text-primary text-lg mb-2">Deliver</h3>
+          <p class="text-muted text-sm">Receive your professionally edited content within 24-48 hours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <CTASection
+    headline="Ready to get started?"
+    description="Whether you need stunning real estate photos, a complete rebrand, or anything in between—we're here to help."
+    variant="dark"
+  />
+</BaseLayout>

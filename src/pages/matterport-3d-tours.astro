@@ -1,0 +1,363 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import siteConfig from '../data/siteConfig.json';
+
+const { business, serviceAreas } = siteConfig;
+
+// Features of Matterport
+const features = [
+  {
+    title: "Dollhouse View",
+    description: "See the entire property layout in a unique 3D perspective that helps buyers understand the space.",
+    icon: "cube",
+  },
+  {
+    title: "Floor Plans",
+    description: "Accurate schematic floor plans automatically generated from the 3D scan data.",
+    icon: "plan",
+  },
+  {
+    title: "Measurement Mode",
+    description: "Buyers can measure any distance in the property—walls, doorways, room dimensions.",
+    icon: "ruler",
+  },
+  {
+    title: "Virtual Walkthrough",
+    description: "Navigate through the property as if you were there, room by room, at your own pace.",
+    icon: "walk",
+  },
+  {
+    title: "Highlight Reel",
+    description: "Guided video tour of key features, perfect for social media and quick property overviews.",
+    icon: "video",
+  },
+  {
+    title: "Easy Sharing",
+    description: "Embed on your website, share via link, or integrate with MLS listings.",
+    icon: "share",
+  },
+];
+
+const icons = {
+  cube: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>`,
+  plan: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/>`,
+  ruler: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>`,
+  walk: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>`,
+  video: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>`,
+  share: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>`,
+};
+
+// Pricing packages
+const packages = [
+  {
+    name: "Standard",
+    description: "Perfect for homes up to 2,500 sq ft",
+    price: "$200",
+    features: [
+      "Matterport 3D Tour",
+      "Dollhouse view",
+      "Floor plan (schematic)",
+      "Measurement mode",
+      "Hosted on Matterport",
+      "Shareable link",
+    ],
+  },
+  {
+    name: "Professional",
+    description: "For homes 2,500-4,500 sq ft",
+    price: "$300",
+    features: [
+      "Everything in Standard",
+      "Guided video tour",
+      "MLS-ready embed code",
+      "Google Street View integration",
+      "Multiple hosting options",
+      "Priority scheduling",
+    ],
+    popular: true,
+  },
+  {
+    name: "Luxury",
+    description: "For estates over 4,500 sq ft",
+    price: "$400+",
+    features: [
+      "Everything in Professional",
+      "Multiple buildings/structures",
+      "Outdoor space scanning",
+      "Custom branding options",
+      "Extended hosting period",
+      "Rush delivery available",
+    ],
+  },
+];
+
+// Stats
+const stats = [
+  { value: "300%", label: "More Engagement", description: "vs. standard listings" },
+  { value: "95%", label: "More Views", description: "Listings get viewed longer" },
+  { value: "49%", label: "Faster Sales", description: "Reduced time on market" },
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "What is a Matterport 3D tour?",
+    answer: "Matterport creates a digital twin of a property—a fully immersive, interactive 3D model that allows viewers to virtually walk through the space from any device. It includes a dollhouse view showing the entire layout, floor plans, and the ability to measure distances.",
+  },
+  {
+    question: "How long does it take to scan a property?",
+    answer: "A typical 2,000-3,000 sq ft home takes about 1-2 hours to scan. Larger properties or those with complex layouts may take longer. We work efficiently while ensuring we capture every detail.",
+  },
+  {
+    question: "When will my 3D tour be ready?",
+    answer: "Standard turnaround is 24-48 hours after the scan is complete. The scan data needs to be uploaded and processed by Matterport's cloud servers. Rush delivery may be available for an additional fee.",
+  },
+  {
+    question: "How do I share the 3D tour?",
+    answer: "You'll receive a shareable link that works on any device. You can also get embed code for your website, post directly to social media, and many MLS systems now support Matterport tours directly.",
+  },
+  {
+    question: "Do I need special software or apps to view the tour?",
+    answer: "No special software needed. Matterport tours work in any modern web browser on computers, tablets, and phones. Viewers can also use VR headsets for a more immersive experience if they have one.",
+  },
+  {
+    question: "Can you combine Matterport with regular photography?",
+    answer: "Absolutely! Most clients book both services together. We can photograph the property and scan for Matterport in the same visit, which is more efficient and ensures consistent visual quality across all your marketing materials.",
+  },
+  {
+    question: "How accurate are the measurements?",
+    answer: "Matterport measurement accuracy is typically within 1% for distances under 30 feet. This is accurate enough for most buyer needs like furniture planning, but we recommend professional measurement for construction or renovation projects.",
+  },
+];
+
+// Schema
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Matterport 3D Virtual Tours",
+  "provider": {
+    "@type": "ProfessionalService",
+    "name": business.name,
+  },
+  "description": "Professional Matterport 3D virtual tours for real estate listings in Northeast Texas. Immersive property walkthroughs with dollhouse view, floor plans, and measurements.",
+  "areaServed": serviceAreas.map(area => ({
+    "@type": "City",
+    "name": area.city,
+  })),
+};
+---
+
+<BaseLayout
+  title="Matterport 3D Tours | Virtual Property Tours | Northeast Texas"
+  description="Professional Matterport 3D virtual tours for real estate in Commerce, Greenville, Rockwall, and Northeast Texas. Immersive property walkthroughs with dollhouse view and floor plans."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} slot="head" />
+
+  <!-- Hero Section -->
+  <section class="relative py-24 md:py-32 bg-primary overflow-hidden">
+    <div class="container relative z-10">
+      <div class="max-w-3xl">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-4">
+          Matterport 3D Tours
+        </p>
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+          Immersive Virtual Property Tours
+        </h1>
+        <p class="text-xl text-white/90 mb-8 leading-relaxed">
+          Give buyers a complete property experience from anywhere in the world. Matterport 3D tours let viewers explore every room, see floor plans, and measure spaces—all from their device.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href={business.bookingPortal} target="_blank" rel="noopener noreferrer" class="btn btn-primary text-lg px-8 py-4">
+            Book a Scan
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="#features" class="btn btn-outline-white text-lg px-8 py-4">
+            See Features
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="py-16 bg-accent">
+    <div class="container">
+      <div class="grid md:grid-cols-3 gap-8 text-center">
+        {stats.map((stat) => (
+          <div>
+            <div class="font-display text-5xl font-bold text-white mb-2">{stat.value}</div>
+            <div class="text-white font-semibold text-lg mb-1">{stat.label}</div>
+            <p class="text-white/70 text-sm">{stat.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What is Matterport -->
+  <section class="section">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+            What is Matterport?
+          </p>
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-6">
+            A Digital Twin of Your Property
+          </h2>
+          <p class="text-muted text-lg leading-relaxed mb-6">
+            Matterport technology creates a complete, dimensionally accurate 3D model of any interior space. Using specialized cameras, we capture every detail of a property and transform it into an interactive virtual experience.
+          </p>
+          <p class="text-muted mb-8">
+            Buyers can explore properties from their couch, international investors can tour without traveling, and serious buyers can pre-qualify themselves before booking a showing—saving everyone time.
+          </p>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-3">
+              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Works on any device—no app required</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Compatible with most MLS systems</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>VR-ready for immersive viewing</span>
+            </li>
+          </ul>
+        </div>
+        <div class="bg-light-bg rounded-2xl aspect-video flex items-center justify-center">
+          <span class="text-muted">Interactive Demo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="section bg-light-bg">
+    <div class="container">
+      <div class="text-center mb-16">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          Tour Features
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+          Everything Buyers Need
+        </h2>
+        <p class="text-muted text-lg max-w-2xl mx-auto">
+          Matterport tours include powerful features that help buyers make informed decisions without ever stepping foot in the property.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {features.map((feature) => (
+          <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow">
+            <div class="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mb-6">
+              <svg
+                class="w-7 h-7 text-accent"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                set:html={icons[feature.icon as keyof typeof icons]}
+              />
+            </div>
+            <h3 class="font-semibold text-primary text-xl mb-2">{feature.title}</h3>
+            <p class="text-muted">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Packages -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-16">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          Pricing
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+          Matterport Packages
+        </h2>
+        <p class="text-muted text-lg max-w-2xl mx-auto">
+          Choose the package that fits your property. All tours include hosting and a shareable link.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {packages.map((pkg) => (
+          <div
+            class:list={[
+              "bg-white rounded-2xl p-8 relative",
+              pkg.popular ? "ring-2 ring-accent shadow-xl" : "border border-border"
+            ]}
+          >
+            {pkg.popular && (
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+                <span class="bg-accent text-white text-sm font-semibold px-4 py-1 rounded-full">
+                  Most Popular
+                </span>
+              </div>
+            )}
+            <div class="text-center mb-6">
+              <h3 class="font-display text-2xl font-bold text-primary mb-2">{pkg.name}</h3>
+              <p class="text-muted text-sm mb-4">{pkg.description}</p>
+              <div class="font-display text-4xl font-bold text-accent">{pkg.price}</div>
+            </div>
+            <ul class="space-y-3 mb-8">
+              {pkg.features.map((feature) => (
+                <li class="flex items-start gap-2">
+                  <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span class="text-body text-sm">{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <a
+              href={business.bookingPortal}
+              target="_blank"
+              rel="noopener noreferrer"
+              class:list={[
+                "btn w-full justify-center",
+                pkg.popular ? "btn-primary" : "btn-secondary"
+              ]}
+            >
+              Book Now
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-center text-muted mt-8">
+        Add Matterport to any real estate photo package for a bundled discount.{" "}
+        <a href="/contact" class="text-accent hover:underline">Contact us</a> for custom quotes.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <FAQAccordion
+    title="Matterport FAQ"
+    subtitle="Common questions about our 3D virtual tour services"
+    faqs={faqs}
+  />
+
+  <!-- CTA -->
+  <CTASection
+    headline="Ready for immersive property marketing?"
+    description="Book your Matterport 3D tour today and give buyers the next-level experience they're looking for."
+    primaryCTA={{ text: "Book a Scan", href: business.bookingPortal }}
+    variant="dark"
+  />
+</BaseLayout>

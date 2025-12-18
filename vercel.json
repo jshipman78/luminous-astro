@@ -1,0 +1,107 @@
+{
+  "framework": "astro",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
+      "source": "/_assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/(.*).webp",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/(.*).jpg",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/(.*).woff2",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ],
+
+  "redirects": [
+    {
+      "source": "/real-estate-photographer/:path*",
+      "destination": "/real-estate-photography/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/photography/photography-pricing",
+      "destination": "/portrait-photography",
+      "permanent": true
+    },
+    {
+      "source": "/photography-pricing-weddings",
+      "destination": "/portrait-photography/wedding-photography",
+      "permanent": true
+    },
+    {
+      "source": "/web-design-and-development",
+      "destination": "/digital-services/web-design",
+      "permanent": true
+    },
+    {
+      "source": "/contact-us-2",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/about-us",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/category/location/commerce",
+      "destination": "/service-areas/commerce-tx",
+      "permanent": true
+    },
+    {
+      "source": "/category/location/greenville",
+      "destination": "/service-areas/greenville-tx",
+      "permanent": true
+    },
+    {
+      "source": "/category/location/rockwall",
+      "destination": "/service-areas/rockwall-tx",
+      "permanent": true
+    },
+    {
+      "source": "/category/location/sulphur-springs",
+      "destination": "/service-areas/sulphur-springs-tx",
+      "permanent": true
+    },
+    {
+      "source": "/index.php",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "permanent": true
+    }
+  ],
+
+  "trailingSlash": false,
+  "cleanUrls": true
+}

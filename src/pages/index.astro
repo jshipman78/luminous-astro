@@ -1,16 +1,267 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import ServiceCard from '../components/sections/ServiceCard.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import siteConfig from '../data/siteConfig.json';
 
+const { business, stats, serviceAreas } = siteConfig;
+
+// Services for the homepage
+const services = [
+  {
+    title: "Real Estate Photography",
+    description: "Professional listing photos, Matterport 3D tours, aerial drone imagery, and floor plans that help properties sell faster.",
+    href: "/real-estate-photography",
+    icon: "home" as const,
+    featured: true,
+  },
+  {
+    title: "Portrait Photography",
+    description: "Family portraits, senior photos, wedding coverage, and professional headshots that capture your authentic story.",
+    href: "/portrait-photography",
+    icon: "users" as const,
+  },
+  {
+    title: "Digital Services",
+    description: "Custom web design, video production, and digital marketing solutions to grow your business online.",
+    href: "/digital-services",
+    icon: "monitor" as const,
+  },
+];
+
+// Why Choose Us stats/features
+const features = [
+  {
+    stat: stats.yearsExperience,
+    label: "Years Experience",
+    description: "Serving Northeast Texas since 2001 with professional photography and digital services.",
+  },
+  {
+    stat: stats.clientsServed,
+    label: "Clients Served",
+    description: "Trusted by realtors, families, and businesses throughout the region.",
+  },
+  {
+    stat: stats.averageRating,
+    label: "Star Rating",
+    description: "Consistently delivering exceptional results and customer satisfaction.",
+  },
+];
+
+// Homepage FAQs
+const faqs = [
+  {
+    question: "What areas do you serve?",
+    answer: `We're based in Commerce, TX and serve clients throughout Northeast Texas including Greenville, Rockwall, Sulphur Springs, Paris, Cooper, Quinlan, and surrounding communities within approximately 50 miles.`,
+  },
+  {
+    question: "How do I book a photography session?",
+    answer: "You can book directly through our online portal, call us at (903) 851-3183, or use the contact form on our website. We typically respond within 24 hours and can often accommodate same-week appointments for real estate photography.",
+  },
+  {
+    question: "What is a Matterport 3D tour?",
+    answer: "Matterport creates an immersive virtual walkthrough of a property that allows potential buyers to explore every room online. It includes a dollhouse view, floor plans, and detailed measurements. These tours significantly increase engagement and help qualify serious buyers before in-person showings.",
+  },
+  {
+    question: "Do you offer drone/aerial photography?",
+    answer: "Yes! We're FAA Part 107 certified for commercial drone operations. Aerial photography and video are available for real estate listings, events, construction progress, and more. We follow all local regulations and obtain necessary permissions.",
+  },
+  {
+    question: "What's your turnaround time for real estate photos?",
+    answer: "Standard real estate photo packages are delivered within 24-48 hours. Rush same-day delivery is available for an additional fee. Matterport tours and aerial footage typically add 24 hours to the timeline.",
+  },
+  {
+    question: "Do you travel outside your service area?",
+    answer: "Absolutely. While our core service area is within 50 miles of Commerce, TX, we regularly travel for larger projects. Travel fees may apply depending on distance. Contact us for a custom quote.",
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Professional Photography & Digital Services | Commerce, TX"
+  description="Luminous Productions offers professional real estate photography, Matterport 3D tours, portraits, and digital services in Commerce, Greenville, Rockwall, and Northeast Texas. Serving the region since 2001."
+>
+  <!-- Hero Section -->
+  <Hero
+    headline="Look good.<br/>Work smarter."
+    subheadline="Northeast Texas Photography & Digital Services"
+    description="Professional photography, Matterport 3D tours, and digital media services serving Commerce, Greenville, Rockwall, and surrounding areas since 2001."
+    primaryCTA={{ text: "View Portfolio", href: "/portfolio" }}
+    secondaryCTA={{ text: "Our Services", href: "#services" }}
+  />
+
+  <!-- Services Section -->
+  <section id="services" class="section bg-light-bg">
+    <div class="container">
+      <!-- Section Header -->
+      <div class="text-center mb-16">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          What We Do
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4">
+          Our Services
+        </h2>
+        <p class="text-muted text-lg max-w-2xl mx-auto">
+          From stunning real estate photography to custom web design, we provide the visual content and digital tools your business needs to succeed.
+        </p>
+      </div>
+
+      <!-- Service Cards -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.map((service) => (
+          <ServiceCard {...service} />
+        ))}
+      </div>
+
+      <!-- View All Services Link -->
+      <div class="text-center mt-12">
+        <a href="/services" class="btn btn-secondary">
+          View All Services
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="section">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Content -->
+        <div>
+          <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+            Why Choose Us
+          </p>
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-6">
+            Trusted by Northeast Texas Since 2001
+          </h2>
+          <p class="text-muted text-lg leading-relaxed mb-8">
+            For over two decades, Luminous Productions has been the go-to choice for professional photography and digital services in Northeast Texas. We combine technical expertise with genuine care for our clients' success.
+          </p>
+
+          <!-- Feature List -->
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-body">FAA Part 107 certified for commercial drone operations</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-body">Official Matterport Service Partner</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-body">24-48 hour turnaround on real estate photos</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-body">Same-day booking often available</span>
+            </li>
+          </ul>
+
+          <a href="/about" class="btn btn-primary">
+            Learn More About Us
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 gap-6">
+          {features.map((feature) => (
+            <div class="bg-light-bg rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
+              <div class="font-display text-4xl md:text-5xl font-bold text-accent mb-2">
+                {feature.stat}
+              </div>
+              <div class="text-primary font-semibold text-lg mb-2">
+                {feature.label}
+              </div>
+              <p class="text-muted text-sm">
+                {feature.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas Section -->
+  <section class="section bg-light-bg">
+    <div class="container">
+      <div class="text-center mb-12">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          Our Coverage
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+          Serving Northeast Texas
+        </h2>
+        <p class="text-muted text-lg max-w-2xl mx-auto">
+          Based in Commerce, we proudly serve clients throughout the region. Click a location to learn more about our services in your area.
+        </p>
+      </div>
+
+      <!-- Location Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {serviceAreas.map((area) => (
+          <a
+            href={`/service-areas/${area.slug}`}
+            class:list={[
+              "group bg-white rounded-xl p-6 text-center transition-all hover:-translate-y-1 hover:shadow-lg border",
+              area.isHomeBase ? "border-accent/30 shadow-md" : "border-border"
+            ]}
+          >
+            <div class="flex items-center justify-center gap-2 mb-2">
+              {area.isHomeBase && (
+                <svg class="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                </svg>
+              )}
+              <span class="font-semibold text-primary group-hover:text-accent transition-colors">
+                {area.city}
+              </span>
+            </div>
+            <span class="text-muted text-sm">{area.state}</span>
+            {area.isHomeBase && (
+              <span class="block text-accent text-xs font-medium mt-1">Home Base</span>
+            )}
+          </a>
+        ))}
+      </div>
+
+      <div class="text-center mt-8">
+        <p class="text-muted">
+          Don't see your area? We travel for projects!{" "}
+          <a href="/contact" class="text-accent hover:underline font-medium">Contact us</a> for a custom quote.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <FAQAccordion
+    title="Frequently Asked Questions"
+    subtitle="Got questions? We've got answers."
+    faqs={faqs}
+  />
+
+  <!-- CTA Section -->
+  <CTASection
+    headline="Ready to elevate your visual content?"
+    description="Whether you need stunning real estate photos, a memorable portrait session, or a complete digital presence, we're here to help bring your vision to life."
+    variant="dark"
+  />
+</BaseLayout>

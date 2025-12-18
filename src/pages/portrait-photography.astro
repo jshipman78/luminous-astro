@@ -1,0 +1,345 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import siteConfig from '../data/siteConfig.json';
+
+const { business, serviceAreas } = siteConfig;
+
+// Portrait types
+const portraitTypes = [
+  {
+    title: "Family Portraits",
+    description: "Capture your family's unique bond with timeless portraits. From newborns to grandparents, we create images that become cherished heirlooms.",
+    includes: ["Outdoor or studio sessions", "Multiple outfit changes", "Group and individual shots", "Professional editing"],
+    price: "From $200",
+  },
+  {
+    title: "Senior Portraits",
+    description: "Celebrate this milestone with portraits that capture your graduate's personality, achievements, and excitement for the future.",
+    includes: ["Multiple locations", "Outfit changes", "Props welcome", "Yearbook-ready options"],
+    price: "From $175",
+  },
+  {
+    title: "Professional Headshots",
+    description: "Make a strong first impression with polished headshots for LinkedIn, company websites, and marketing materials.",
+    includes: ["Studio or on-location", "Multiple backgrounds", "Quick turnaround", "Retouching included"],
+    price: "From $125",
+  },
+  {
+    title: "Couples & Engagement",
+    description: "Document your love story with romantic portraits. Perfect for engagements, anniversaries, or just because.",
+    includes: ["Location of choice", "Natural and posed shots", "Multiple looks", "Print-ready files"],
+    price: "From $225",
+  },
+];
+
+// Process steps
+const processSteps = [
+  {
+    step: "1",
+    title: "Consultation",
+    description: "We'll discuss your vision, preferred locations, wardrobe options, and what makes your family or story unique.",
+  },
+  {
+    step: "2",
+    title: "Session",
+    description: "Relaxed, fun sessions where we capture genuine moments and expressions. We guide you through poses while keeping things natural.",
+  },
+  {
+    step: "3",
+    title: "Selection",
+    description: "View your gallery online and select your favorites. We'll help you choose images that tell your story best.",
+  },
+  {
+    step: "4",
+    title: "Delivery",
+    description: "Receive your professionally edited images as high-resolution digital files, with print options available.",
+  },
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "What should we wear for our portrait session?",
+    answer: "We recommend coordinating colors rather than matching outfits. Solid colors photograph best—avoid busy patterns, logos, and neon colors. Bring layers and accessories for variety. We're happy to provide wardrobe guidance during your consultation.",
+  },
+  {
+    question: "Where do you shoot portraits?",
+    answer: "We offer both outdoor and studio sessions. For outdoor sessions, we know the best locations throughout Northeast Texas—parks, downtown areas, lakesides, and more. We can also come to your home or a meaningful location. Studio sessions are available by arrangement.",
+  },
+  {
+    question: "How long is a typical portrait session?",
+    answer: "Family and senior sessions typically run 1-2 hours, allowing time for multiple locations, outfit changes, and a variety of shots. Headshot sessions are usually 30-45 minutes. Mini sessions and special events vary.",
+  },
+  {
+    question: "How soon will we receive our photos?",
+    answer: "Your online gallery will be ready within 2 weeks of your session. Once you make your selections, final edited images are delivered within 1 week. Rush delivery is available if needed.",
+  },
+  {
+    question: "Do you offer prints and products?",
+    answer: "Yes! We offer professional-quality prints, canvas wraps, albums, and other products through our print partner. While digital files are included in all sessions, there's something special about having printed portraits to display in your home.",
+  },
+  {
+    question: "What if someone isn't feeling well or weather is bad?",
+    answer: "Life happens! We offer one free reschedule for illness or severe weather. Just let us know as soon as possible so we can get you on the calendar for a new date.",
+  },
+  {
+    question: "Can you photograph large groups?",
+    answer: "Absolutely! We regularly photograph extended families, corporate teams, and other large groups. For groups over 10 people, we recommend discussing logistics in advance to ensure we have adequate time and appropriate locations.",
+  },
+  {
+    question: "Do you travel for portrait sessions?",
+    answer: "We serve all of Northeast Texas and can travel for sessions within our service area at no additional charge. For destinations outside our area, we're happy to discuss travel arrangements.",
+  },
+];
+
+// Schema
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Portrait Photography",
+  "provider": {
+    "@type": "ProfessionalService",
+    "name": business.name,
+  },
+  "description": "Professional portrait photography including family portraits, senior photos, headshots, and couples sessions in Northeast Texas.",
+  "areaServed": serviceAreas.map(area => ({
+    "@type": "City",
+    "name": area.city,
+  })),
+};
+---
+
+<BaseLayout
+  title="Portrait Photography | Family, Senior, Headshots | Northeast Texas"
+  description="Professional portrait photography in Commerce, Greenville, Rockwall, and Northeast Texas. Family portraits, senior photos, professional headshots, and couples sessions."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} slot="head" />
+
+  <!-- Hero Section -->
+  <section class="relative py-24 md:py-32 bg-primary overflow-hidden">
+    <div class="container relative z-10">
+      <div class="max-w-3xl">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-4">
+          Portrait Photography
+        </p>
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+          Portraits That Tell Your Story
+        </h1>
+        <p class="text-xl text-white/90 mb-8 leading-relaxed">
+          From family milestones to professional headshots, we create portraits that capture personality, connection, and the moments that matter most. Serving Northeast Texas families since 2001.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href={business.bookingPortal} target="_blank" rel="noopener noreferrer" class="btn btn-primary text-lg px-8 py-4">
+            Book a Session
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="#sessions" class="btn btn-outline-white text-lg px-8 py-4">
+            View Sessions
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Professional Portraits -->
+  <section class="section">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+            More Than Photos
+          </p>
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-6">
+            Memories Preserved Forever
+          </h2>
+          <p class="text-muted text-lg leading-relaxed mb-6">
+            Phone photos are convenient, but professional portraits are different. They're intentional, timeless, and capture the real essence of the people you love. These are the images that hang on walls, fill albums, and get passed down through generations.
+          </p>
+          <p class="text-muted mb-8">
+            With over 20 years of experience photographing Northeast Texas families, we know how to put people at ease, find the best light, and capture genuine expressions that reflect who you really are.
+          </p>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-3">
+              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Relaxed, fun sessions—especially with kids</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Beautiful Northeast Texas outdoor locations</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Professional editing and retouching</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span>Print and digital delivery options</span>
+            </li>
+          </ul>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="space-y-4">
+            <div class="bg-light-bg rounded-2xl aspect-[3/4]"></div>
+            <div class="bg-light-bg rounded-2xl aspect-square"></div>
+          </div>
+          <div class="space-y-4 pt-8">
+            <div class="bg-light-bg rounded-2xl aspect-square"></div>
+            <div class="bg-light-bg rounded-2xl aspect-[3/4]"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Session Types -->
+  <section id="sessions" class="section bg-light-bg">
+    <div class="container">
+      <div class="text-center mb-16">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          Session Types
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+          Portrait Sessions For Every Occasion
+        </h2>
+        <p class="text-muted text-lg max-w-2xl mx-auto">
+          From family reunions to LinkedIn profiles, we offer portrait sessions tailored to your needs.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        {portraitTypes.map((type) => (
+          <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="font-display text-2xl font-bold text-primary">{type.title}</h3>
+              <span class="text-accent font-bold">{type.price}</span>
+            </div>
+            <p class="text-muted mb-6">{type.description}</p>
+            <div class="border-t border-border pt-4">
+              <p class="text-sm font-semibold text-primary mb-3">Session includes:</p>
+              <ul class="grid grid-cols-2 gap-2">
+                {type.includes.map((item) => (
+                  <li class="flex items-center gap-2 text-sm">
+                    <svg class="w-4 h-4 text-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span class="text-muted">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="text-center mt-12">
+        <p class="text-muted mb-4">
+          Don't see what you need? We also offer mini sessions, event coverage, and custom packages.
+        </p>
+        <a href="/contact" class="btn btn-secondary">
+          Contact for Custom Quote
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-16">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          The Experience
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+          How It Works
+        </h2>
+        <p class="text-muted text-lg max-w-2xl mx-auto">
+          From first contact to final delivery, we make the portrait experience easy and enjoyable.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-8">
+        {processSteps.map((step) => (
+          <div class="text-center">
+            <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="font-display text-2xl font-bold text-white">{step.step}</span>
+            </div>
+            <h3 class="font-semibold text-primary text-lg mb-2">{step.title}</h3>
+            <p class="text-muted text-sm">{step.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Locations -->
+  <section class="section bg-primary text-white">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+            Beautiful Locations
+          </p>
+          <h2 class="font-display text-3xl md:text-4xl font-bold mb-6">
+            Northeast Texas Has No Shortage of Stunning Backdrops
+          </h2>
+          <p class="text-white/80 text-lg leading-relaxed mb-6">
+            From downtown squares to lakeside retreats, we know all the best spots for portrait sessions throughout the region. We'll help you choose a location that matches your style and tells your story.
+          </p>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <h4 class="font-semibold mb-2">Popular Outdoor Spots</h4>
+              <ul class="space-y-1 text-white/70 text-sm">
+                <li>Lake Tawakoni</li>
+                <li>Lake Ray Hubbard</li>
+                <li>Cooper Lake</li>
+                <li>Downtown Commerce</li>
+                <li>Historic Greenville</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-2">Session Options</h4>
+              <ul class="space-y-1 text-white/70 text-sm">
+                <li>Golden hour sessions</li>
+                <li>Shaded woodland</li>
+                <li>Urban backdrops</li>
+                <li>Your home or property</li>
+                <li>Studio sessions</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-white/10 rounded-2xl aspect-square backdrop-blur-sm"></div>
+          <div class="bg-white/10 rounded-2xl aspect-square mt-8 backdrop-blur-sm"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <FAQAccordion
+    title="Portrait Photography FAQ"
+    subtitle="Common questions about our portrait sessions"
+    faqs={faqs}
+  />
+
+  <!-- CTA -->
+  <CTASection
+    headline="Ready to capture your story?"
+    description="Book your portrait session today. We can't wait to meet your family and create images you'll treasure for years to come."
+    primaryCTA={{ text: "Book a Session", href: business.bookingPortal }}
+    variant="dark"
+  />
+</BaseLayout>

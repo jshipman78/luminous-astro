@@ -1,0 +1,303 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import siteConfig from '../data/siteConfig.json';
+
+const { business, stats, credentials, serviceAreas } = siteConfig;
+
+// Timeline milestones
+const milestones = [
+  {
+    year: "2001",
+    title: "Founded in Commerce",
+    description: "Started as a small photography studio serving the local community.",
+  },
+  {
+    year: "2008",
+    title: "Expanded to Video",
+    description: "Added video production services to meet growing client demand.",
+  },
+  {
+    year: "2015",
+    title: "Drone Certification",
+    description: "Became FAA Part 107 certified for commercial drone operations.",
+  },
+  {
+    year: "2018",
+    title: "Matterport Partner",
+    description: "Added 3D virtual tour technology for real estate clients.",
+  },
+  {
+    year: "2024",
+    title: "23+ Years Strong",
+    description: "Continuing to serve Northeast Texas with expanded digital services.",
+  },
+];
+
+// Values
+const values = [
+  {
+    title: "Quality First",
+    description: "Every project receives our full attention and commitment to excellence. We don't cut corners.",
+    icon: "star",
+  },
+  {
+    title: "Client-Focused",
+    description: "Your success is our success. We listen, adapt, and deliver results that exceed expectations.",
+    icon: "users",
+  },
+  {
+    title: "Local Expertise",
+    description: "Deep roots in Northeast Texas mean we understand our community and the markets we serve.",
+    icon: "location",
+  },
+  {
+    title: "Always Learning",
+    description: "We stay current with technology and techniques to offer you the best possible service.",
+    icon: "lightbulb",
+  },
+];
+
+const icons = {
+  star: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>`,
+  users: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>`,
+  location: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>`,
+  lightbulb: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>`,
+};
+---
+
+<BaseLayout
+  title="About Us | Luminous Productions"
+  description="Learn about Luminous Productions, serving Northeast Texas with professional photography and digital services since 2001. Meet our team and discover our story."
+>
+  <!-- Hero Section -->
+  <section class="relative py-24 md:py-32 bg-primary overflow-hidden">
+    <div class="container relative z-10">
+      <div class="max-w-3xl">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-4">
+          About Us
+        </p>
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+          Your Story Deserves to Be Told Beautifully
+        </h1>
+        <p class="text-xl text-white/90 leading-relaxed">
+          Since 2001, Luminous Productions has been helping businesses and families throughout Northeast Texas capture their most important moments and present their best face to the world.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <section class="bg-accent py-8">
+    <div class="container">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="font-display text-4xl font-bold text-white mb-1">{stats.yearsExperience}</div>
+          <div class="text-white/80 text-sm">Years in Business</div>
+        </div>
+        <div>
+          <div class="font-display text-4xl font-bold text-white mb-1">{stats.clientsServed}</div>
+          <div class="text-white/80 text-sm">Clients Served</div>
+        </div>
+        <div>
+          <div class="font-display text-4xl font-bold text-white mb-1">{stats.averageRating}</div>
+          <div class="text-white/80 text-sm">Star Rating</div>
+        </div>
+        <div>
+          <div class="font-display text-4xl font-bold text-white mb-1">{serviceAreas.length}</div>
+          <div class="text-white/80 text-sm">Cities Served</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story Section -->
+  <section class="section">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+            Our Story
+          </p>
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-6">
+            Built on Passion, Grown Through Trust
+          </h2>
+          <div class="prose prose-lg text-muted">
+            <p>
+              What started as a passion for photography in 2001 has grown into Northeast Texas's trusted source for professional visual content and digital services. From our home base in Commerce, TX, we've had the privilege of serving hundreds of clients across the region.
+            </p>
+            <p>
+              Over the years, we've evolved with technology—adding video production, drone photography, Matterport 3D tours, and web design to our offerings. But our core mission has never changed: to help our clients look their best and work smarter.
+            </p>
+            <p>
+              Today, we're proud to serve realtors, families, businesses, and organizations throughout Commerce, Greenville, Rockwall, and beyond. Every project, big or small, receives the same attention to detail and commitment to excellence that has defined our work for over two decades.
+            </p>
+          </div>
+        </div>
+        <div class="bg-light-bg rounded-2xl aspect-[4/3] flex items-center justify-center">
+          <span class="text-muted">About Photo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section class="section bg-light-bg">
+    <div class="container">
+      <div class="text-center mb-16">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          Our Journey
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+          23 Years of Growth
+        </h2>
+      </div>
+
+      <div class="max-w-3xl mx-auto">
+        <div class="relative">
+          <!-- Timeline line -->
+          <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-accent/30 -translate-x-1/2"></div>
+
+          {milestones.map((milestone, index) => (
+            <div class:list={[
+              "relative flex items-start gap-8 mb-12 last:mb-0",
+              index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+            ]}>
+              <!-- Year marker -->
+              <div class="absolute left-8 md:left-1/2 w-16 h-16 bg-accent rounded-full flex items-center justify-center -translate-x-1/2 z-10">
+                <span class="font-display font-bold text-white text-sm">{milestone.year}</span>
+              </div>
+
+              <!-- Content -->
+              <div class:list={[
+                "ml-24 md:ml-0 md:w-5/12",
+                index % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16"
+              ]}>
+                <h3 class="font-semibold text-primary text-lg mb-2">{milestone.title}</h3>
+                <p class="text-muted">{milestone.description}</p>
+              </div>
+
+              <!-- Spacer for opposite side -->
+              <div class="hidden md:block md:w-5/12"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-16">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          What Drives Us
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+          Our Values
+        </h2>
+        <p class="text-muted text-lg max-w-2xl mx-auto">
+          These principles guide everything we do, from how we work to how we treat our clients.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {values.map((value) => (
+          <div class="text-center">
+            <div class="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <svg
+                class="w-8 h-8 text-accent"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                set:html={icons[value.icon as keyof typeof icons]}
+              />
+            </div>
+            <h3 class="font-semibold text-primary text-lg mb-2">{value.title}</h3>
+            <p class="text-muted text-sm">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Credentials Section -->
+  <section class="section bg-primary text-white">
+    <div class="container">
+      <div class="text-center mb-12">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          Our Credentials
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">
+          Certified & Qualified
+        </h2>
+        <p class="text-white/80 text-lg max-w-2xl mx-auto">
+          We invest in training and certifications to deliver the highest quality services.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        {credentials.map((credential) => (
+          <div class="bg-white/10 rounded-xl p-6 text-center backdrop-blur-sm">
+            <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+              </svg>
+            </div>
+            <h3 class="font-semibold text-lg mb-1">{credential.name}</h3>
+            <p class="text-white/70 text-sm">{credential.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas Section -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-12">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          Where We Work
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+          Proudly Serving Northeast Texas
+        </h2>
+        <p class="text-muted text-lg max-w-2xl mx-auto">
+          From our home base in Commerce, we serve clients throughout the region.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-4">
+        {serviceAreas.map((area) => (
+          <a
+            href={`/service-areas/${area.slug}`}
+            class:list={[
+              "px-6 py-3 rounded-full font-medium transition-all hover:-translate-y-1",
+              area.isHomeBase
+                ? "bg-accent text-white shadow-lg"
+                : "bg-light-bg text-primary hover:bg-accent hover:text-white"
+            ]}
+          >
+            {area.city}, {area.state}
+            {area.isHomeBase && (
+              <span class="ml-2 text-xs opacity-80">(HQ)</span>
+            )}
+          </a>
+        ))}
+      </div>
+
+      <p class="text-center text-muted mt-8">
+        Don't see your area? <a href="/contact" class="text-accent hover:underline font-medium">Contact us</a>—we travel for projects!
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <CTASection
+    headline="Ready to work together?"
+    description="We'd love to hear about your project. Get in touch and let's create something amazing."
+    primaryCTA={{ text: "Get in Touch", href: "/contact" }}
+    variant="dark"
+  />
+</BaseLayout>

@@ -1,0 +1,129 @@
+---
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  faqs: FAQ[];
+  showSchema?: boolean;
+}
+
+const {
+  title = "Frequently Asked Questions",
+  subtitle = "Common questions about our services",
+  faqs,
+  showSchema = true,
+} = Astro.props;
+
+// Generate FAQ Schema
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<section class="section bg-light-bg">
+  <div class="container max-w-3xl">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">FAQ</p>
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+        {title}
+      </h2>
+      {subtitle && (
+        <p class="text-muted text-lg">{subtitle}</p>
+      )}
+    </div>
+
+    <!-- FAQ Items -->
+    <div class="space-y-4" id="faq-accordion">
+      {faqs.map((faq, index) => (
+        <div
+          class="bg-white rounded-xl border border-border overflow-hidden"
+          data-faq-item
+        >
+          <button
+            class="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-light-bg transition-colors group"
+            aria-expanded="false"
+            aria-controls={`faq-content-${index}`}
+            data-faq-trigger
+          >
+            <span class="font-semibold text-primary pr-8 group-hover:text-accent transition-colors">
+              {faq.question}
+            </span>
+            <svg
+              class="w-5 h-5 text-accent transition-transform duration-300 flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              data-faq-icon
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </button>
+          <div
+            id={`faq-content-${index}`}
+            class="hidden px-6 pb-5"
+            data-faq-content
+          >
+            <p class="text-muted leading-relaxed">
+              {faq.answer}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- FAQ Schema -->
+  {showSchema && (
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  )}
+</section>
+
+<script>
+  // Accordion functionality
+  const accordionItems = document.querySelectorAll('[data-faq-item]');
+
+  accordionItems.forEach((item) => {
+    const trigger = item.querySelector('[data-faq-trigger]');
+    const content = item.querySelector('[data-faq-content]');
+    const icon = item.querySelector('[data-faq-icon]');
+
+    if (trigger && content && icon) {
+      trigger.addEventListener('click', () => {
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+        // Close all other items
+        accordionItems.forEach((otherItem) => {
+          const otherTrigger = otherItem.querySelector('[data-faq-trigger]');
+          const otherContent = otherItem.querySelector('[data-faq-content]');
+          const otherIcon = otherItem.querySelector('[data-faq-icon]');
+
+          if (otherTrigger && otherContent && otherIcon && otherItem !== item) {
+            otherTrigger.setAttribute('aria-expanded', 'false');
+            otherContent.classList.add('hidden');
+            otherIcon.classList.remove('rotate-180');
+          }
+        });
+
+        // Toggle current item
+        trigger.setAttribute('aria-expanded', (!isExpanded).toString());
+        content.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180');
+      });
+    }
+  });
+</script>

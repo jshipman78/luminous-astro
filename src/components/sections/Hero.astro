@@ -1,0 +1,126 @@
+---
+import siteConfig from '../../data/siteConfig.json';
+
+interface Props {
+  headline?: string;
+  subheadline?: string;
+  description?: string;
+  primaryCTA?: {
+    text: string;
+    href: string;
+  };
+  secondaryCTA?: {
+    text: string;
+    href: string;
+  };
+  showStats?: boolean;
+  backgroundImage?: string;
+  overlay?: 'dark' | 'gradient' | 'none';
+}
+
+const {
+  headline = "Look good.<br/>Work smarter.",
+  subheadline = "Northeast Texas Photography & Digital Services",
+  description = "Professional photography and digital media services serving Commerce, Greenville, Rockwall, and surrounding areas since 2001.",
+  primaryCTA = { text: "View Portfolio", href: "/portfolio" },
+  secondaryCTA = { text: "Our Services", href: "#services" },
+  showStats = true,
+  backgroundImage,
+  overlay = 'gradient',
+} = Astro.props;
+
+const { business, stats } = siteConfig;
+
+const overlayClasses = {
+  dark: 'bg-primary/85',
+  gradient: 'bg-gradient-to-r from-primary/90 via-primary/70 to-transparent',
+  none: '',
+};
+---
+
+<section class="relative min-h-[90vh] flex items-center overflow-hidden">
+  <!-- Background -->
+  <div class="absolute inset-0">
+    {backgroundImage ? (
+      <img
+        src={backgroundImage}
+        alt=""
+        class="w-full h-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+      />
+    ) : (
+      <div class="w-full h-full bg-gradient-to-br from-primary via-primary-light to-primary"></div>
+    )}
+    {overlay !== 'none' && (
+      <div class={`absolute inset-0 ${overlayClasses[overlay]}`}></div>
+    )}
+  </div>
+
+  <!-- Content -->
+  <div class="container relative z-10 py-20">
+    <div class="max-w-3xl">
+      <!-- Subheadline -->
+      <p class="text-accent font-semibold tracking-wide uppercase text-sm mb-4 animate-fade-in-up">
+        {subheadline}
+      </p>
+
+      <!-- Main Headline -->
+      <h1
+        class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-fade-in-up animation-delay-100"
+        set:html={headline}
+      />
+
+      <!-- Description -->
+      <p class="text-xl text-white/90 mb-8 leading-relaxed max-w-2xl animate-fade-in-up animation-delay-200">
+        {description}
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-wrap gap-4 animate-fade-in-up animation-delay-300">
+        <a href={primaryCTA.href} class="btn btn-primary text-lg px-8 py-4">
+          {primaryCTA.text}
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a href={secondaryCTA.href} class="btn btn-outline-white text-lg px-8 py-4">
+          {secondaryCTA.text}
+        </a>
+      </div>
+
+      <!-- Stats Bar -->
+      {showStats && (
+        <div class="grid grid-cols-3 gap-8 mt-16 pt-8 border-t border-white/20 animate-fade-in-up animation-delay-400">
+          <div>
+            <div class="font-display text-3xl md:text-4xl font-bold text-accent mb-1">
+              {stats.yearsExperience}
+            </div>
+            <div class="text-white/80 text-sm">Years Experience</div>
+          </div>
+          <div>
+            <div class="font-display text-3xl md:text-4xl font-bold text-accent mb-1">
+              {stats.clientsServed}
+            </div>
+            <div class="text-white/80 text-sm">Clients Served</div>
+          </div>
+          <div>
+            <div class="font-display text-3xl md:text-4xl font-bold text-accent mb-1">
+              {stats.averageRating}
+            </div>
+            <div class="text-white/80 text-sm">Average Rating</div>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
+    <a href="#services" class="text-white/60 hover:text-white transition-colors" aria-label="Scroll down">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+      </svg>
+    </a>
+  </div>
+</section>

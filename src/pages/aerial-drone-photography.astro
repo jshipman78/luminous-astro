@@ -1,0 +1,354 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import siteConfig from '../data/siteConfig.json';
+
+const { business, serviceAreas, credentials } = siteConfig;
+
+// Use cases
+const useCases = [
+  {
+    title: "Real Estate",
+    description: "Showcase property size, lot features, neighborhood context, and proximity to amenities from above.",
+    examples: ["Residential listings", "Commercial properties", "Land and acreage", "New construction"],
+  },
+  {
+    title: "Construction",
+    description: "Document progress, survey sites, and create compelling before/after documentation.",
+    examples: ["Progress documentation", "Site surveys", "Roof inspections", "Marketing renders"],
+  },
+  {
+    title: "Events",
+    description: "Capture the scale and energy of outdoor events from unique aerial perspectives.",
+    examples: ["Weddings", "Festivals", "Sports events", "Corporate gatherings"],
+  },
+  {
+    title: "Agriculture",
+    description: "Survey land, monitor crops, and document farm operations from the air.",
+    examples: ["Land surveys", "Crop monitoring", "Ranch documentation", "Irrigation mapping"],
+  },
+];
+
+// Packages
+const packages = [
+  {
+    name: "Basic Aerial",
+    description: "Essential aerial coverage for smaller properties",
+    price: "From $150",
+    features: [
+      "Up to 10 aerial photos",
+      "Multiple angles and heights",
+      "Professional editing",
+      "24-48 hour delivery",
+      "High-resolution files",
+    ],
+  },
+  {
+    name: "Professional",
+    description: "Comprehensive aerial for most properties",
+    price: "From $250",
+    features: [
+      "Up to 20 aerial photos",
+      "Aerial video (up to 2 min)",
+      "Multiple flight patterns",
+      "Golden hour/twilight option",
+      "Professional editing",
+      "Same-day rush available",
+    ],
+    popular: true,
+  },
+  {
+    name: "Premium",
+    description: "Full aerial package for large properties",
+    price: "From $400",
+    features: [
+      "Unlimited aerial photos",
+      "Extended video (up to 5 min)",
+      "Cinematic video editing",
+      "Neighborhood flyover",
+      "Multiple sessions if needed",
+      "Priority scheduling",
+    ],
+  },
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "Are you FAA certified for drone operations?",
+    answer: "Yes, we hold an FAA Part 107 Remote Pilot Certificate, which is required for all commercial drone operations in the United States. We maintain current certification and follow all FAA regulations for safe, legal drone flights.",
+  },
+  {
+    question: "Can you fly anywhere?",
+    answer: "There are some restrictions. We cannot fly in restricted airspace (near airports, military bases, etc.) without authorization, over crowds of people, or in certain national parks. Most residential and commercial properties are fine. We'll check airspace restrictions for your specific location before booking.",
+  },
+  {
+    question: "What happens if the weather is bad on shoot day?",
+    answer: "Safety comes first. We don't fly in rain, high winds (over 20 mph), or other unsafe conditions. If weather prevents the shoot, we'll reschedule at no additional cost. We monitor forecasts and will contact you in advance if we anticipate issues.",
+  },
+  {
+    question: "How high can you fly?",
+    answer: "FAA regulations limit commercial drone flights to 400 feet above ground level. This is typically more than enough height to capture excellent aerial perspectives of properties and land.",
+  },
+  {
+    question: "Do I need permission from neighbors?",
+    answer: "Generally, no. We operate from and photograph your property and public airspace. However, we're always respectful of neighbors and their privacy. We focus our cameras on your property and avoid capturing detailed images of neighboring homes.",
+  },
+  {
+    question: "Can you fly indoors?",
+    answer: "We typically don't fly drones indoors due to safety concerns and GPS limitations. For large indoor spaces like warehouses or event venues, we can discuss options. For indoor coverage, our Matterport 3D tours are usually a better solution.",
+  },
+  {
+    question: "How long does an aerial photo shoot take?",
+    answer: "Most aerial sessions take 30-60 minutes on site. This includes setup, multiple flights, and capturing various angles and heights. Larger properties or those requiring video may take longer.",
+  },
+  {
+    question: "Can I combine aerial photos with ground photography?",
+    answer: "Absolutely! Most real estate clients book both ground and aerial photography together. We offer package discounts when you combine services, and it's more efficient to capture everything in one visit.",
+  },
+];
+
+// Schema
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Aerial Drone Photography",
+  "provider": {
+    "@type": "ProfessionalService",
+    "name": business.name,
+  },
+  "description": "FAA Part 107 certified drone photography and videography services for real estate, construction, events, and agriculture in Northeast Texas.",
+  "areaServed": serviceAreas.map(area => ({
+    "@type": "City",
+    "name": area.city,
+  })),
+};
+---
+
+<BaseLayout
+  title="Aerial Drone Photography | FAA Certified | Northeast Texas"
+  description="FAA Part 107 certified drone photography and video for real estate, construction, and events in Commerce, Greenville, Rockwall, and Northeast Texas."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} slot="head" />
+
+  <!-- Hero Section -->
+  <section class="relative py-24 md:py-32 bg-primary overflow-hidden">
+    <div class="container relative z-10">
+      <div class="max-w-3xl">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="bg-accent/20 text-accent text-sm font-semibold px-3 py-1 rounded-full">
+            FAA Part 107 Certified
+          </span>
+        </div>
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+          Aerial Photography & Video
+        </h1>
+        <p class="text-xl text-white/90 mb-8 leading-relaxed">
+          See your property from a whole new perspective. Our FAA-certified drone photography captures stunning aerial views that showcase scope, features, and surroundings like nothing else can.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href={business.bookingPortal} target="_blank" rel="noopener noreferrer" class="btn btn-primary text-lg px-8 py-4">
+            Book Aerial Photography
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="#packages" class="btn btn-outline-white text-lg px-8 py-4">
+            View Packages
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certification Banner -->
+  <section class="py-8 bg-accent">
+    <div class="container">
+      <div class="flex flex-wrap items-center justify-center gap-8 text-white">
+        <div class="flex items-center gap-3">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+          </svg>
+          <span class="font-semibold">FAA Part 107 Certified</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+          <span class="font-semibold">Fully Insured</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <span class="font-semibold">Safe & Professional</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Aerial -->
+  <section class="section">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+            Why Aerial Photography?
+          </p>
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-6">
+            Perspectives That Ground Photos Can't Capture
+          </h2>
+          <p class="text-muted text-lg leading-relaxed mb-6">
+            Aerial photography reveals what's impossible to see from the ground: the full scope of a property, its relationship to surroundings, neighborhood context, and features like pools, landscaping, and lot size that buyers want to understand.
+          </p>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-body"><strong>Show property scope</strong> — Lot size, land features, and boundaries</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-body"><strong>Highlight features</strong> — Pools, patios, outbuildings, landscaping</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-body"><strong>Context matters</strong> — Proximity to parks, lakes, schools, amenities</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-body"><strong>Stand out</strong> — Differentiate listings in a competitive market</span>
+            </li>
+          </ul>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-light-bg rounded-2xl aspect-square"></div>
+          <div class="bg-light-bg rounded-2xl aspect-square mt-8"></div>
+          <div class="bg-light-bg rounded-2xl aspect-square"></div>
+          <div class="bg-light-bg rounded-2xl aspect-square mt-8"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases -->
+  <section class="section bg-light-bg">
+    <div class="container">
+      <div class="text-center mb-16">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          Applications
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+          Aerial Photography For Every Industry
+        </h2>
+        <p class="text-muted text-lg max-w-2xl mx-auto">
+          From real estate to agriculture, aerial perspectives add value across many industries.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {useCases.map((useCase) => (
+          <div class="bg-white rounded-2xl p-6 shadow-sm">
+            <h3 class="font-semibold text-primary text-xl mb-3">{useCase.title}</h3>
+            <p class="text-muted text-sm mb-4">{useCase.description}</p>
+            <ul class="space-y-2">
+              {useCase.examples.map((example) => (
+                <li class="flex items-center gap-2 text-sm">
+                  <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span class="text-muted">{example}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Packages -->
+  <section id="packages" class="section">
+    <div class="container">
+      <div class="text-center mb-16">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          Pricing
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+          Aerial Photography Packages
+        </h2>
+        <p class="text-muted text-lg max-w-2xl mx-auto">
+          Professional aerial photography at competitive rates. Add to any real estate package for bundled savings.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {packages.map((pkg) => (
+          <div
+            class:list={[
+              "bg-white rounded-2xl p-8 relative",
+              pkg.popular ? "ring-2 ring-accent shadow-xl" : "border border-border"
+            ]}
+          >
+            {pkg.popular && (
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+                <span class="bg-accent text-white text-sm font-semibold px-4 py-1 rounded-full">
+                  Most Popular
+                </span>
+              </div>
+            )}
+            <div class="text-center mb-6">
+              <h3 class="font-display text-2xl font-bold text-primary mb-2">{pkg.name}</h3>
+              <p class="text-muted text-sm mb-4">{pkg.description}</p>
+              <div class="font-display text-3xl font-bold text-accent">{pkg.price}</div>
+            </div>
+            <ul class="space-y-3 mb-8">
+              {pkg.features.map((feature) => (
+                <li class="flex items-start gap-2">
+                  <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span class="text-body text-sm">{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <a
+              href={business.bookingPortal}
+              target="_blank"
+              rel="noopener noreferrer"
+              class:list={[
+                "btn w-full justify-center",
+                pkg.popular ? "btn-primary" : "btn-secondary"
+              ]}
+            >
+              Book Now
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <FAQAccordion
+    title="Drone Photography FAQ"
+    subtitle="Common questions about our aerial photography services"
+    faqs={faqs}
+  />
+
+  <!-- CTA -->
+  <CTASection
+    headline="Ready for aerial perspectives?"
+    description="Book your drone photography session today. FAA certified, fully insured, and ready to capture your property from above."
+    primaryCTA={{ text: "Book Aerial Photography", href: business.bookingPortal }}
+    variant="dark"
+  />
+</BaseLayout>

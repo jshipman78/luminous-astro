@@ -1,0 +1,482 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import FAQAccordion from '../components/sections/FAQAccordion.astro';
+import siteConfig from '../data/siteConfig.json';
+
+const { business, serviceAreas, credentials } = siteConfig;
+
+// Service packages
+const packages = [
+  {
+    name: "Essential",
+    description: "Perfect for smaller properties and quick listings",
+    price: "Starting at $150",
+    features: [
+      "Up to 25 HDR photos",
+      "Professional editing",
+      "24-hour turnaround",
+      "MLS-ready sizing",
+      "Web gallery download",
+    ],
+    popular: false,
+  },
+  {
+    name: "Professional",
+    description: "Our most popular package for standard listings",
+    price: "Starting at $275",
+    features: [
+      "Up to 40 HDR photos",
+      "Twilight/dusk shots",
+      "Professional editing",
+      "24-hour turnaround",
+      "MLS-ready sizing",
+      "Print-quality files",
+      "Web gallery + download",
+    ],
+    popular: true,
+  },
+  {
+    name: "Premium",
+    description: "Complete visual marketing for luxury properties",
+    price: "Starting at $450",
+    features: [
+      "Unlimited HDR photos",
+      "Aerial drone photography",
+      "Twilight/dusk shots",
+      "Virtual staging (2 rooms)",
+      "Same-day rush available",
+      "Print & web files",
+      "Social media sizing",
+    ],
+    popular: false,
+  },
+];
+
+// Add-on services
+const addons = [
+  {
+    name: "Matterport 3D Tour",
+    description: "Interactive virtual walkthrough with dollhouse view and floor plans",
+    price: "From $200",
+    icon: "cube",
+  },
+  {
+    name: "Aerial Drone",
+    description: "FAA-certified aerial photos and video of property and surroundings",
+    price: "From $150",
+    icon: "plane",
+  },
+  {
+    name: "Video Walkthrough",
+    description: "Cinematic property tour video with music and branding",
+    price: "From $350",
+    icon: "video",
+  },
+  {
+    name: "Virtual Staging",
+    description: "Digitally furnish empty rooms to help buyers visualize potential",
+    price: "$35/room",
+    icon: "home",
+  },
+];
+
+const icons = {
+  cube: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>`,
+  plane: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>`,
+  video: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>`,
+  home: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>`,
+};
+
+// Why professional photos matter stats
+const stats = [
+  { value: "32%", label: "Higher Sale Price", description: "Homes with professional photos sell for more" },
+  { value: "50%", label: "Faster Sales", description: "Professional photos attract buyers quicker" },
+  { value: "118%", label: "More Views", description: "Listings get more online engagement" },
+];
+
+// FAQs specific to real estate photography
+const faqs = [
+  {
+    question: "How far in advance should I book a real estate photo shoot?",
+    answer: "We recommend booking 2-3 days in advance when possible, though we can often accommodate same-day or next-day requests. For luxury properties or shoots requiring multiple services (drone, Matterport, video), 3-5 days notice is ideal.",
+  },
+  {
+    question: "What should I do to prepare the property?",
+    answer: "We recommend: decluttering surfaces, hiding personal items, turning on all lights, opening blinds/curtains, ensuring lawn is mowed, removing vehicles from driveway, and putting away pet items. We'll send a detailed preparation checklist when you book.",
+  },
+  {
+    question: "How long does a typical photo shoot take?",
+    answer: "Standard homes (under 3,000 sq ft) typically take 45-60 minutes. Larger properties or those including drone/Matterport can take 2-3 hours. We work efficiently while ensuring we capture every important feature.",
+  },
+  {
+    question: "What's the turnaround time for edited photos?",
+    answer: "Standard turnaround is 24-48 hours. Rush same-day delivery is available for an additional fee. Matterport tours are typically ready within 24 hours of the shoot.",
+  },
+  {
+    question: "Do you provide MLS-compliant photos?",
+    answer: "Yes! All photos are delivered in MLS-ready formats including proper dimensions and file sizes. We also provide high-resolution versions for print marketing and social media-optimized sizes.",
+  },
+  {
+    question: "What areas do you serve for real estate photography?",
+    answer: `We're based in Commerce, TX and serve realtors throughout Northeast Texas including ${serviceAreas.map(a => a.city).join(', ')}, and surrounding areas within approximately 50 miles.`,
+  },
+  {
+    question: "Do you work with real estate teams and brokerages?",
+    answer: "Absolutely! We offer volume discounts and priority scheduling for real estate teams and brokerages. Contact us to discuss a custom arrangement for your team.",
+  },
+];
+
+// Schema for the service page
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Real Estate Photography",
+  "provider": {
+    "@type": "ProfessionalService",
+    "name": business.name,
+    "telephone": business.phoneRaw,
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": business.address.city,
+      "addressRegion": business.address.state,
+    }
+  },
+  "description": "Professional real estate photography services including HDR photos, drone aerial photography, Matterport 3D tours, and video walkthroughs for property listings in Northeast Texas.",
+  "areaServed": serviceAreas.map(area => ({
+    "@type": "City",
+    "name": area.city,
+    "containedInPlace": {
+      "@type": "State",
+      "name": "Texas"
+    }
+  })),
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Real Estate Photography Packages",
+    "itemListElement": packages.map((pkg, index) => ({
+      "@type": "Offer",
+      "name": pkg.name,
+      "description": pkg.description,
+    }))
+  }
+};
+---
+
+<BaseLayout
+  title="Real Estate Photography | Commerce, Greenville, Rockwall TX"
+  description="Professional real estate photography, Matterport 3D tours, drone aerial photos, and video walkthroughs. Serving Northeast Texas realtors since 2001. 24-48 hour turnaround."
+>
+  <!-- Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} slot="head" />
+
+  <!-- Hero Section -->
+  <section class="relative py-24 md:py-32 bg-primary overflow-hidden">
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute inset-0 bg-gradient-to-br from-primary via-transparent to-primary-light"></div>
+    </div>
+    <div class="container relative z-10">
+      <div class="max-w-3xl">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-4">
+          Real Estate Photography
+        </p>
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+          Listings That Sell Faster
+        </h1>
+        <p class="text-xl text-white/90 mb-8 leading-relaxed">
+          Professional real estate photography that showcases properties at their best. HDR photos, aerial drone imagery, Matterport 3D tours, and video walkthroughs—delivered within 24-48 hours.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href={business.bookingPortal} target="_blank" rel="noopener noreferrer" class="btn btn-primary text-lg px-8 py-4">
+            Book a Shoot
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="#packages" class="btn btn-outline-white text-lg px-8 py-4">
+            View Packages
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-16 bg-light-bg">
+    <div class="container">
+      <div class="grid md:grid-cols-3 gap-8">
+        {stats.map((stat) => (
+          <div class="text-center">
+            <div class="font-display text-5xl font-bold text-accent mb-2">{stat.value}</div>
+            <div class="text-primary font-semibold text-lg mb-1">{stat.label}</div>
+            <p class="text-muted text-sm">{stat.description}</p>
+          </div>
+        ))}
+      </div>
+      <p class="text-center text-muted text-sm mt-8">
+        *Statistics from National Association of Realtors and real estate industry studies
+      </p>
+    </div>
+  </section>
+
+  <!-- Why It Matters Section -->
+  <section class="section">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+            Why Professional Photos Matter
+          </p>
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-6">
+            First Impressions Start Online
+          </h2>
+          <p class="text-muted text-lg leading-relaxed mb-6">
+            Over 95% of home buyers start their search online. Your listing photos are often the first—and sometimes only—chance to make an impression. Professional photography ensures your listings stand out, attract more views, and convert more showings.
+          </p>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-body">HDR photography captures the full range of light in every room</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-body">Wide-angle lenses showcase room dimensions accurately</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-body">Color-accurate editing ensures true-to-life representation</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+              <span class="text-body">Consistent quality builds your brand reputation</span>
+            </li>
+          </ul>
+          <p class="text-muted">
+            <strong class="text-primary">Since 2001</strong>, we've helped realtors across Northeast Texas present properties in their best light. Our experience means we know exactly how to capture the features that sell homes.
+          </p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="space-y-4">
+            <div class="bg-light-bg rounded-2xl aspect-[4/3]"></div>
+            <div class="bg-light-bg rounded-2xl aspect-square"></div>
+          </div>
+          <div class="space-y-4 pt-8">
+            <div class="bg-light-bg rounded-2xl aspect-square"></div>
+            <div class="bg-light-bg rounded-2xl aspect-[4/3]"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Packages Section -->
+  <section id="packages" class="section bg-light-bg">
+    <div class="container">
+      <div class="text-center mb-16">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          Pricing
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+          Photography Packages
+        </h2>
+        <p class="text-muted text-lg max-w-2xl mx-auto">
+          Flexible packages designed to fit any listing. All packages include professional HDR photography and fast turnaround.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {packages.map((pkg) => (
+          <div
+            class:list={[
+              "bg-white rounded-2xl p-8 relative",
+              pkg.popular ? "ring-2 ring-accent shadow-xl" : "border border-border"
+            ]}
+          >
+            {pkg.popular && (
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+                <span class="bg-accent text-white text-sm font-semibold px-4 py-1 rounded-full">
+                  Most Popular
+                </span>
+              </div>
+            )}
+            <div class="text-center mb-6">
+              <h3 class="font-display text-2xl font-bold text-primary mb-2">{pkg.name}</h3>
+              <p class="text-muted text-sm mb-4">{pkg.description}</p>
+              <div class="font-display text-3xl font-bold text-accent">{pkg.price}</div>
+            </div>
+            <ul class="space-y-3 mb-8">
+              {pkg.features.map((feature) => (
+                <li class="flex items-start gap-2">
+                  <svg class="w-5 h-5 text-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span class="text-body text-sm">{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <a
+              href={business.bookingPortal}
+              target="_blank"
+              rel="noopener noreferrer"
+              class:list={[
+                "btn w-full justify-center",
+                pkg.popular ? "btn-primary" : "btn-secondary"
+              ]}
+            >
+              Book Now
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-center text-muted mt-8">
+        Need a custom package? <a href="/contact" class="text-accent hover:underline font-medium">Contact us</a> for a personalized quote.
+      </p>
+    </div>
+  </section>
+
+  <!-- Add-ons Section -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-16">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          Enhance Your Listing
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+          Add-On Services
+        </h2>
+        <p class="text-muted text-lg max-w-2xl mx-auto">
+          Take your listing to the next level with these premium services. Add to any package.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {addons.map((addon) => (
+          <div class="bg-light-bg rounded-2xl p-6 hover:shadow-lg transition-shadow">
+            <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mb-4">
+              <svg
+                class="w-6 h-6 text-accent"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                set:html={icons[addon.icon as keyof typeof icons]}
+              />
+            </div>
+            <h3 class="font-semibold text-primary text-lg mb-2">{addon.name}</h3>
+            <p class="text-muted text-sm mb-3">{addon.description}</p>
+            <div class="text-accent font-bold">{addon.price}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="section bg-primary text-white">
+    <div class="container">
+      <div class="text-center mb-16">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          How It Works
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">
+          Simple 4-Step Process
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="font-display text-2xl font-bold text-white">1</span>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Book Online</h3>
+          <p class="text-white/70 text-sm">Select your package and schedule through our booking portal. Same-day appointments often available.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="font-display text-2xl font-bold text-white">2</span>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Prepare Property</h3>
+          <p class="text-white/70 text-sm">We'll send a checklist. Declutter, turn on lights, and we'll handle the rest.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="font-display text-2xl font-bold text-white">3</span>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Photo Shoot</h3>
+          <p class="text-white/70 text-sm">Our photographer captures every angle. Most shoots take 45-60 minutes.</p>
+        </div>
+        <div class="text-center">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="font-display text-2xl font-bold text-white">4</span>
+          </div>
+          <h3 class="font-semibold text-lg mb-2">Download & List</h3>
+          <p class="text-white/70 text-sm">Receive your edited photos within 24-48 hours. MLS-ready and print-quality files included.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Areas -->
+  <section class="section">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+            Coverage Area
+          </p>
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-6">
+            Serving Northeast Texas Realtors
+          </h2>
+          <p class="text-muted text-lg leading-relaxed mb-6">
+            Based in Commerce, TX, we provide real estate photography services throughout Hunt, Hopkins, Rockwall, Collin, Delta, and surrounding counties. Our coverage extends approximately 50 miles from Commerce.
+          </p>
+          <p class="text-muted mb-8">
+            Travel is included for most service areas. Contact us for quotes on locations outside our standard coverage.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            {serviceAreas.map((area) => (
+              <a
+                href={`/service-areas/${area.slug}`}
+                class:list={[
+                  "px-4 py-2 rounded-full text-sm font-medium transition-colors",
+                  area.isHomeBase
+                    ? "bg-accent text-white"
+                    : "bg-light-bg text-primary hover:bg-accent hover:text-white"
+                ]}
+              >
+                {area.city}, {area.state}
+              </a>
+            ))}
+          </div>
+        </div>
+        <div class="bg-light-bg rounded-2xl aspect-video flex items-center justify-center">
+          <span class="text-muted">Service Area Map</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <FAQAccordion
+    title="Real Estate Photography FAQ"
+    subtitle="Common questions about our real estate photography services"
+    faqs={faqs}
+  />
+
+  <!-- CTA Section -->
+  <CTASection
+    headline="Ready to elevate your listings?"
+    description="Book your real estate photo shoot today and see the difference professional photography makes."
+    primaryCTA={{ text: "Book a Shoot", href: business.bookingPortal }}
+    variant="dark"
+  />
+</BaseLayout>

@@ -1,0 +1,130 @@
+---
+import siteConfig from '../../data/siteConfig.json';
+
+const { business, serviceAreas, credentials } = siteConfig;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://luminouspro.com/#organization",
+  "name": business.name,
+  "legalName": business.legalName,
+  "url": "https://luminouspro.com",
+  "logo": "https://luminouspro.com/images/logo.png",
+  "image": "https://luminouspro.com/images/og-default.jpg",
+  "description": business.description,
+  "slogan": business.tagline,
+  "foundingDate": business.foundingDate,
+  "telephone": business.phoneRaw,
+  "email": business.email,
+  "priceRange": "$$",
+
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": business.address.street,
+    "addressLocality": business.address.city,
+    "addressRegion": business.address.state,
+    "postalCode": business.address.zip,
+    "addressCountry": "US"
+  },
+
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": business.address.coordinates.lat,
+    "longitude": business.address.coordinates.lng
+  },
+
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "17:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Saturday", "Sunday"],
+      "opens": "00:00",
+      "closes": "00:00",
+      "description": "By appointment only"
+    }
+  ],
+
+  "sameAs": [
+    business.social.facebook,
+    business.social.instagram,
+    business.social.youtube,
+    business.social.linkedin
+  ],
+
+  "knowsAbout": [
+    "Photography",
+    "Real Estate Photography",
+    "Portrait Photography",
+    "Wedding Photography",
+    "Matterport 3D Tours",
+    "Drone Photography",
+    "Aerial Photography",
+    "Web Design",
+    "Video Production"
+  ],
+
+  "areaServed": serviceAreas.map(area => ({
+    "@type": "City",
+    "name": area.city,
+    "containedInPlace": {
+      "@type": "State",
+      "name": "Texas"
+    }
+  })),
+
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Photography and Digital Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Real Estate Photography",
+          "description": "Professional listing photos that help sell homes faster"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Matterport 3D Tours",
+          "description": "Immersive virtual tours for real estate"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Aerial Drone Photography",
+          "description": "FAA-certified drone photography and videography"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Portrait Photography",
+          "description": "Family, wedding, senior, and business portraits"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Web Design",
+          "description": "Custom website design and development"
+        }
+      }
+    ]
+  }
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

@@ -1,0 +1,254 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTASection from '../components/sections/CTASection.astro';
+import siteConfig from '../data/siteConfig.json';
+
+const { business } = siteConfig;
+
+// Portfolio categories
+const categories = [
+  {
+    id: "real-estate",
+    name: "Real Estate",
+    description: "Professional property photography that helps homes sell faster",
+    count: 24,
+  },
+  {
+    id: "aerial",
+    name: "Aerial",
+    description: "Stunning drone photography and video from above",
+    count: 18,
+  },
+  {
+    id: "portrait",
+    name: "Portraits",
+    description: "Family, senior, and professional headshot photography",
+    count: 32,
+  },
+  {
+    id: "commercial",
+    name: "Commercial",
+    description: "Business, product, and marketing photography",
+    count: 15,
+  },
+  {
+    id: "matterport",
+    name: "3D Tours",
+    description: "Immersive Matterport virtual property tours",
+    count: 12,
+  },
+];
+
+// Featured work (placeholder - would come from CMS/content)
+const featuredWork = [
+  { category: "real-estate", title: "Luxury Lakefront Home", location: "Rockwall, TX" },
+  { category: "real-estate", title: "Historic Downtown Property", location: "Greenville, TX" },
+  { category: "aerial", title: "Ranch Aerial Survey", location: "Cooper, TX" },
+  { category: "portrait", title: "Smith Family Session", location: "Commerce, TX" },
+  { category: "aerial", title: "New Construction Progress", location: "Rockwall, TX" },
+  { category: "portrait", title: "Senior Portrait Session", location: "Greenville, TX" },
+  { category: "commercial", title: "Restaurant Photography", location: "Sulphur Springs, TX" },
+  { category: "matterport", title: "Virtual Home Tour", location: "Quinlan, TX" },
+  { category: "real-estate", title: "Modern Farmhouse", location: "Commerce, TX" },
+];
+---
+
+<BaseLayout
+  title="Portfolio | Photography & Digital Services | Luminous Productions"
+  description="View our portfolio of professional photography work including real estate, portraits, aerial drone, and commercial photography throughout Northeast Texas."
+>
+  <!-- Hero Section -->
+  <section class="relative py-24 md:py-32 bg-primary overflow-hidden">
+    <div class="container relative z-10">
+      <div class="max-w-3xl">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-4">
+          Our Work
+        </p>
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+          Portfolio
+        </h1>
+        <p class="text-xl text-white/90 leading-relaxed">
+          Over two decades of professional photography across Northeast Texas. Browse our recent work and see why clients trust Luminous Productions for their visual content needs.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Filter -->
+  <section class="py-8 bg-light-bg sticky top-20 z-30 border-b border-border">
+    <div class="container">
+      <div class="flex flex-wrap gap-3 justify-center" id="portfolio-filter">
+        <button
+          class="portfolio-filter-btn active px-5 py-2 rounded-full text-sm font-medium transition-all bg-accent text-white"
+          data-filter="all"
+        >
+          All Work
+        </button>
+        {categories.map((cat) => (
+          <button
+            class="portfolio-filter-btn px-5 py-2 rounded-full text-sm font-medium transition-all bg-white text-primary hover:bg-accent hover:text-white border border-border"
+            data-filter={cat.id}
+          >
+            {cat.name}
+            <span class="ml-1 text-xs opacity-60">({cat.count})</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
+        {featuredWork.map((work, index) => (
+          <div
+            class="portfolio-item group relative bg-light-bg rounded-2xl overflow-hidden aspect-[4/3] cursor-pointer"
+            data-category={work.category}
+          >
+            <!-- Placeholder for image -->
+            <div class="w-full h-full bg-gradient-to-br from-primary/20 to-accent/20"></div>
+
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div class="absolute bottom-0 left-0 right-0 p-6">
+                <span class="text-accent text-sm font-medium uppercase tracking-wide">
+                  {categories.find(c => c.id === work.category)?.name}
+                </span>
+                <h3 class="text-white font-semibold text-lg mt-1">{work.title}</h3>
+                <p class="text-white/70 text-sm">{work.location}</p>
+              </div>
+            </div>
+
+            <!-- View indicator -->
+            <div class="absolute top-4 right-4 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
+              </svg>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Load More (placeholder) -->
+      <div class="text-center mt-12">
+        <button class="btn btn-secondary" id="load-more">
+          Load More Work
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="section bg-light-bg">
+    <div class="container">
+      <div class="text-center mb-12">
+        <p class="text-accent font-semibold uppercase tracking-wide text-sm mb-3">
+          Browse By Category
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-primary mb-4">
+          Explore Our Work
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {categories.map((cat) => (
+          <a
+            href={`#${cat.id}`}
+            class="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all hover:-translate-y-1"
+            data-filter-link={cat.id}
+          >
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="font-semibold text-primary text-xl group-hover:text-accent transition-colors">
+                {cat.name}
+              </h3>
+              <span class="bg-accent/10 text-accent text-sm font-medium px-3 py-1 rounded-full">
+                {cat.count} projects
+              </span>
+            </div>
+            <p class="text-muted text-sm">{cat.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="section">
+    <div class="container">
+      <div class="max-w-4xl mx-auto text-center">
+        <svg class="w-12 h-12 text-accent/30 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+        </svg>
+        <blockquote class="font-display text-2xl md:text-3xl text-primary font-medium mb-6 leading-relaxed">
+          "Luminous Productions has been our go-to photographer for years. Their real estate photos consistently help our listings stand out and sell faster."
+        </blockquote>
+        <div class="flex items-center justify-center gap-4">
+          <div class="w-12 h-12 bg-accent/20 rounded-full"></div>
+          <div class="text-left">
+            <p class="font-semibold text-primary">Local Realtor</p>
+            <p class="text-muted text-sm">Greenville, TX</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <CTASection
+    headline="Ready to start your project?"
+    description="Let's create something amazing together. Contact us to discuss your photography needs."
+    variant="dark"
+  />
+</BaseLayout>
+
+<script>
+  // Portfolio filter functionality
+  const filterButtons = document.querySelectorAll('.portfolio-filter-btn');
+  const portfolioItems = document.querySelectorAll('.portfolio-item');
+  const filterLinks = document.querySelectorAll('[data-filter-link]');
+
+  function filterPortfolio(category: string) {
+    // Update button states
+    filterButtons.forEach(btn => {
+      btn.classList.remove('active', 'bg-accent', 'text-white');
+      btn.classList.add('bg-white', 'text-primary', 'border', 'border-border');
+
+      if (btn.getAttribute('data-filter') === category) {
+        btn.classList.add('active', 'bg-accent', 'text-white');
+        btn.classList.remove('bg-white', 'text-primary', 'border', 'border-border');
+      }
+    });
+
+    // Filter items
+    portfolioItems.forEach(item => {
+      const itemCategory = item.getAttribute('data-category');
+      if (category === 'all' || itemCategory === category) {
+        item.classList.remove('hidden');
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+  }
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const category = btn.getAttribute('data-filter') || 'all';
+      filterPortfolio(category);
+    });
+  });
+
+  filterLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const category = link.getAttribute('data-filter-link') || 'all';
+      filterPortfolio(category);
+
+      // Scroll to grid
+      document.getElementById('portfolio-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>

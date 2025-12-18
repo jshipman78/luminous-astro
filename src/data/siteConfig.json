@@ -1,0 +1,84 @@
+{
+  "business": {
+    "name": "Luminous Productions",
+    "legalName": "Luminous Productions LLC",
+    "tagline": "Look good. Work smarter.",
+    "description": "Professional photography and digital media services in Northeast Texas since 2001.",
+    "foundingDate": "2001-11",
+    "yearsInBusiness": "23+",
+    "phone": "(903) 851-3183",
+    "phoneRaw": "+19038513183",
+    "email": "info@luminouspro.com",
+    "address": {
+      "street": "2913 Charity Rd",
+      "city": "Commerce",
+      "state": "TX",
+      "zip": "75428",
+      "full": "2913 Charity Rd, Commerce, TX 75428",
+      "coordinates": {
+        "lat": 33.2468,
+        "lng": -95.8999
+      }
+    },
+    "hours": {
+      "weekday": "9am - 5pm",
+      "weekend": "By appointment",
+      "display": "Mon-Fri 9am-5pm"
+    },
+    "social": {
+      "facebook": "https://www.facebook.com/luminousProMarketing",
+      "instagram": "https://instagram.com/luminouspro_photography",
+      "youtube": "https://www.youtube.com/@LuminousProMedia/videos",
+      "linkedin": "https://www.linkedin.com/company/luminous-productions"
+    },
+    "bookingPortal": "https://portal.luminouspro.com"
+  },
+  "seo": {
+    "defaultTitle": "Luminous Productions | Photography & Digital Media | Commerce TX",
+    "titleTemplate": "%s | Luminous Productions",
+    "defaultDescription": "Professional photography and digital services in Northeast Texas since 2001. Real estate, portraits, web design, and more. Serving Commerce, Greenville, Rockwall & surrounding areas.",
+    "defaultImage": "/images/og-default.jpg",
+    "twitterHandle": "@luminouspro"
+  },
+  "services": {
+    "primary": [
+      {
+        "name": "Real Estate Photography",
+        "slug": "real-estate-photography",
+        "icon": "camera",
+        "description": "Professional listing photos that sell homes faster"
+      },
+      {
+        "name": "Portrait Photography",
+        "slug": "portrait-photography",
+        "icon": "users",
+        "description": "Family, wedding, senior & business portraits"
+      },
+      {
+        "name": "Digital Services",
+        "slug": "digital-services",
+        "icon": "monitor",
+        "description": "Web design, automation & video production"
+      }
+    ]
+  },
+  "serviceAreas": [
+    { "city": "Commerce", "state": "TX", "slug": "commerce-tx", "isHomeBase": true },
+    { "city": "Greenville", "state": "TX", "slug": "greenville-tx", "distance": "20 min" },
+    { "city": "Rockwall", "state": "TX", "slug": "rockwall-tx", "distance": "45 min" },
+    { "city": "Sulphur Springs", "state": "TX", "slug": "sulphur-springs-tx", "distance": "30 min" },
+    { "city": "Paris", "state": "TX", "slug": "paris-tx", "distance": "45 min" },
+    { "city": "Cooper", "state": "TX", "slug": "cooper-tx", "distance": "25 min" },
+    { "city": "Quinlan", "state": "TX", "slug": "quinlan-tx", "distance": "35 min" }
+  ],
+  "credentials": [
+    "FAA Part 107 Certified Drone Pilots",
+    "Matterport Service Provider",
+    "Licensed & Insured"
+  ],
+  "stats": {
+    "yearsExperience": "23+",
+    "clientsServed": "500+",
+    "averageRating": "5.0"
+  }
+}
